@@ -1,0 +1,8 @@
+id;pid;p-answer;nodetype;question;tasks
+0;;;question;Do you want to do something productive?;_
+1;0;No;question;Should the task involve leaving the house?;_
+2;0;Yes;question;Short-term or long-term productive?;_
+3;1;No;task;_;play video games,read a book,find a movie to watch
+4;1;Yes;question;Inside or outside?;_
+5;4;Inside;task;_;see a movie,go to a coffee shop
+6;4;Outside;task;_;go for a walk,go to the river,read in the gardens
