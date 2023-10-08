@@ -131,37 +131,37 @@ def get_node(root, id):
     raise TypeError("Root must be of type Node")
 
 
-def traverse(node, v=False, indents = 0, ind=" "*2):
+def traverse(root, v=False, indents = 0, ind=" "*2):
     """
-    counts the number of nodes in the tree
+    counts the number of nodes in the tree starting at root
     """
-    if isinstance(node, QuestionNode):
+    if isinstance(root, QuestionNode):
         if v:
-            print(f"{ind*indents}{node.__str__()}")
+            print(f"{ind*indents}{root.__str__()}")
         ret = 1
-        children = node.get_children()
+        children = root.get_children()
         if children:
             for child in range(len(children)):
                 if v:
-                    print(f"{ind*(indents+1)}{node.get_answer(child)}:")
+                    print(f"{ind*(indents+1)}{root.get_answer(child)}:")
                 ret += traverse(children[child], v=v, indents=indents+2, ind=ind)
         return ret
-    if isinstance(node, TaskNode):
+    if isinstance(root, TaskNode):
         if v:
-            print(f"{ind*indents}{node.__str__()}")
+            print(f"{ind*indents}{root.__str__()}")
         return 1
 
 
-def print_tree(node, indents = 0, ind=" "*2):
-    if isinstance(node, QuestionNode):
-        print(f"{ind*indents}{node.get_question()}")
-        children = node.get_children()
+def print_tree(root, indents = 0, ind=" "*2):
+    if isinstance(root, QuestionNode):
+        print(f"{ind*indents}{root.get_question()}")
+        children = root.get_children()
         if children:
             for child in range(len(children)):
-                print(f"{ind*(indents+1)}{node.get_answer(child)}:")
+                print(f"{ind*(indents+1)}{root.get_answer(child)}:")
                 print_tree(children[child], indents=indents+2, ind=ind)
-    if isinstance(node, TaskNode):
-        tasks = node.get_tasks()
+    if isinstance(root, TaskNode):
+        tasks = root.get_tasks()
         for i in range(len(tasks)):
             print(f"{ind*indents}{i}) {tasks[i]}")
 

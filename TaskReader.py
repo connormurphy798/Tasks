@@ -10,6 +10,7 @@ task file formatting requirements:
         - value: the question for question nodes, list of comma-separated tasks for task nodes
     - second line gives root node, which must be a question node
     - all other lines are nodes which are descendents of the root node
+        - need not be in order, i.e. if node A descends from node B, A and B can appear in any order in the file
 """
 
 import Node
@@ -49,32 +50,17 @@ def make_task_tree(node_list, print_tree=True):
         else:
             trees.append((new_node, pid, node_line[2]))
 
-    """
-    print("TREE SO FAR:")
-    Node.print_tree_neat(root)
-
-    print("\n\nSTILL REMAINING:")
-    print(trees)
-    print("\n\n")
-    """
-
     # go back and try to add any unconnected nodes
-    # count = 0   # testing
-    # print(f"Tree ids: {sorted(Node.get_tree_ids(root))}")
     while trees:
-        # print(f"iteration {count}: {trees}")
         to_remove = -1
         for i in range(len(trees)):
             node, pid, answer = trees[i]
             parent = Node.get_node(root=root, id=pid)
-            # print(f"parent: {parent}")
             if parent:
                 parent.add_existing_child(child=node, answer=answer)
                 to_remove = i
                 break
-        # print(f"TO REMOVE: {to_remove}")
         if to_remove == -1:
-            # Node.print_tree_neat(root)
             raise ValueError(f"Node(s) without parent present in file, (node, pid, answer): {trees}")
         trees.pop(i)
     
