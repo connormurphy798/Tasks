@@ -23,7 +23,7 @@ class QuestionNode(Node):
         self.answers = []   # parallel list with children, denoting what answer each child corresponds to
     
 
-    def add_qchild(self, id, answer="", child_question="", i=None):
+    def add_new_qchild(self, id, answer="", child_question="", i=None):
         child = QuestionNode(id=id, question=child_question)
         if not i or i >= len(self.children):
             self.children.append(child)
@@ -34,7 +34,7 @@ class QuestionNode(Node):
         return child
     
 
-    def add_tchild(self, id, answer="", child_tasks=[],  i=None):
+    def add_new_tchild(self, id, answer="", child_tasks=[],  i=None):
         child = TaskNode(id=id, tasks=child_tasks)
         if not i or i >= len(self.children):
             self.children.append(child)
@@ -45,7 +45,7 @@ class QuestionNode(Node):
         return child
     
 
-    def get_chilren(self):
+    def get_children(self):
         return self.children
 
 
@@ -125,13 +125,12 @@ def get_node(root, id):
         if root.get_id() == id:
             return root
         if isinstance(root, QuestionNode):
-            for child in root.get_chilren():
+            for child in root.get_children():
                 node = get_node(child, id)
                 if node:
                     return node
         return None
     raise TypeError("Root must be of type Node")
-
 
 
 def traverse(node, v=False, indents = 0, ind=" "*2):
@@ -142,7 +141,7 @@ def traverse(node, v=False, indents = 0, ind=" "*2):
         if v:
             print(f"{ind*indents}{node.__str__()}")
         ret = 1
-        children = node.get_chilren()
+        children = node.get_children()
         if children:
             for child in range(len(children)):
                 if v:
@@ -155,16 +154,52 @@ def traverse(node, v=False, indents = 0, ind=" "*2):
         return 1
 
 
-def print_qt(node, indents = 0, ind=" "*2):
+def print_tree(node, indents = 0, ind=" "*2):
     if isinstance(node, QuestionNode):
         print(f"{ind*indents}{node.get_question()}")
-        ret = 1
-        children = node.get_chilren()
+        children = node.get_children()
         if children:
             for child in range(len(children)):
                 print(f"{ind*(indents+1)}{node.get_answer(child)}:")
-                ret += print_qt(children[child], indents=indents+2, ind=ind)
-        return ret
+                print_tree(children[child], indents=indents+2, ind=ind)
     if isinstance(node, TaskNode):
-        print(f"{ind*indents}{node.get_tasks()}")
-        return 1
+        tasks = node.get_tasks()
+        for i in range(len(tasks)):
+            print(f"{ind*indents}{i}) {tasks[i]}")
+
+
+def print_tree_neat(root, prefix=""):
+    if isinstance(root, QuestionNode):
+        print(f"{prefix}{root.get_question()}")
+        children = root.get_children()
+        if children:
+            for child in range(len(children)):
+                print(f"{prefix}|-{root.get_answer(child)}:")
+                if child < len(children)-1:
+                    print_tree_neat(children[child], prefix+"|   ")
+                else:
+                    print_tree_neat(children[child], prefix+"    ")
+    if isinstance(root, TaskNode):
+        tasks = root.get_tasks()
+        for i in range(len(tasks)):
+            print(f"{prefix}{i}) {tasks[i]}")
+
+
+def find_tasks(root):
+    if isinstance(root, QuestionNode):
+        ret = []
+        for child in root.get_children():
+            ret.extend(find_tasks(child))
+        return ret
+    if isinstance(root, TaskNode):
+        return root.get_tasks()
+    raise TypeError("root must be a QuestionNode or TaskNode.")
+
+
+def num_tasks(root):
+    if isinstance(root, QuestionNode):
+        return sum([num_tasks(child) for child in root.get_children()])
+    if isinstance(root, TaskNode):
+        return len(root.get_tasks())
+    raise TypeError("root must be a QuestionNode or TaskNode.")
+

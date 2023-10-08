@@ -1,8 +1,18 @@
-id;pid;p-answer;nodetype;question;tasks
-0;;;question;Do you want to do something productive?;_
-1;0;No;question;Should the task involve leaving the house?;_
-2;0;Yes;question;Short-term or long-term productive?;_
-3;1;No;task;_;play video games,read a book,find a movie to watch
-4;1;Yes;question;Inside or outside?;_
-5;4;Inside;task;_;see a movie,go to a coffee shop
-6;4;Outside;task;_;go for a walk,go to the river,read in the gardens
+id;pid;p-answer;nodetype;value
+0;;;question;Do you want to do something productive?
+1;0;No;question;Should the task involve leaving the house?
+15;0;Yes;question;Doing something or planning?
+2;15;Doing something;question;Real or fake productive (i.e. needs to get done vs. would be good to do)?
+3;1;No;task;play video games,read a book,find a movie to watch,watch current show,play a board game
+4;1;Yes;question;Inside or outside?
+5;4;Inside;task;see a movie,go to a coffee shop
+6;4;Outside;task;go for a walk,go to the river,read in the gardens
+7;2;Real;question;Primarily physical or thinking-based?
+8;7;Physical;task;clean bathroom,run errands,clean mildred's litter,clean kitchen/fridge,take out recycling,tend to plants,make tomorrow's coffee,start on next meal
+9;7;Thinking;task;budgeting,studying/classwork,work on increasing income,make that doctor's/dentist appointment,find some necessary paperwork to do,find a spreadsheet to make,try a new recipe
+10;2;Fake;question;Productive in the sense of producing something or no?
+11;10;Producing;question;Something new or an existing project?
+12;11;New;task;cross stitch,start a song,new baking recipe,find a new woodworking/household project,devise a new programming project
+13;11;Existing;task;work on a song,bake cookies,go to github and pick a repo to work on
+14;10;Not producing;task;exercise,practice cornet,learn/practice a song on keyboard,call a family member,journal
+16;15;Planning;task;make list of short-term tasks/errands,gift buying,homebrew research

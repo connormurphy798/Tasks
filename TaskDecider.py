@@ -7,11 +7,19 @@ def choose_task(task_file):
     task_tree = TaskReader.make_task_tree(node_list, print_tree=False)
 
     node = task_tree
+    print("Enter -1 at any point to see all tasks matching current criteria.")
     while isinstance(node, Node.QuestionNode):
         i = int(input(format_question(node)))   # TODO: input checking
+        if i == -1:
+            break
         node = node.get_child(i)
-    tasks = "\n  " + "\n  ".join([task for task in node.get_tasks()])
-    print(f"Potential tasks: {tasks}")
+    tasks = Node.find_tasks(node)
+    if tasks:
+        print("Potential tasks:")
+        for i in range(len(tasks)):
+            print(f"  {i}) {tasks[i]}")
+    else:
+        print("No tasks match your criteria.")
         
 
 

@@ -7,8 +7,7 @@ task file formatting requirements:
         - pid: id of parent node
         - p-answer: answer to the parent node's question
         - nodetype: question or task
-        - question: the question for question nodes, '_' for task nodes
-        - tasks: '_' for question nodes, a list of plus-sign-separated tasks for task nodes
+        - value: the question for question nodes, list of comma-separated tasks for task nodes
     - second line gives root node, which must be a question node
     - all other lines are nodes which are descendents of the root node
 """
@@ -31,15 +30,17 @@ def make_task_tree(node_list, print_tree=True):
     root = Node.QuestionNode(id=int(root_line[0]), question=root_line[4])
 
     for node_line in node_list[1:]:
-        # node_line == [id, pid, p-answer, nodetype, question, tasks]
+        # node_line == [id, pid, p-answer, nodetype, value]
         parent = Node.get_node(root=root, id=int(node_line[1]))
         if node_line[3] == "question":
-            parent.add_qchild(id=int(node_line[0]), answer=node_line[2], child_question=node_line[4])
+            child = parent.add_new_qchild(id=int(node_line[0]), answer=node_line[2], child_question=node_line[4])
         elif node_line[3] == "task":
-            parent.add_tchild(id=int(node_line[0]), answer=node_line[2], child_tasks=node_line[5].split(","))
+            child = parent.add_new_tchild(id=int(node_line[0]), answer=node_line[2], child_tasks=node_line[4].split(","))
+        else:
+            raise ValueError(f"Must specify whether node is of type question or task (node {node_line[0]}, child of {node_line[1]})")
     
     if print_tree:
-        Node.print_qt(root)
+        Node.print_tree_neat(root)
     return root
     
     
@@ -47,4 +48,5 @@ def make_task_tree(node_list, print_tree=True):
 if __name__ == "__main__":
     task_file = "tasks.txt"
     nodes = read_file(task_file)
-    make_task_tree(nodes, print_tree=True)
+    task_tree = make_task_tree(nodes, print_tree=True)
+    # print(f"{Node.num_tasks(task_tree)} total tasks listed")
