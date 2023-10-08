@@ -1,6 +1,8 @@
 import Node
 import TaskReader
 
+import random
+
 
 def choose_task(task_file):
     node_info_list = TaskReader.read_file(task_file)
@@ -15,9 +17,13 @@ def choose_task(task_file):
         node = node.get_child(i)
     tasks = Node.find_tasks(node)
     if tasks:
-        print("Potential tasks:")
-        for i in range(len(tasks)):
-            print(f"  {i}) {tasks[i]}")
+        i = int(input("Input 0 to list all tasks matching your criteria, or 1 to pick a random one. >"))
+        if i == 0:
+            print("Potential tasks:")
+            for i in range(len(tasks)):
+                print(f"  {i}) {tasks[i]}")
+        elif i == 1:
+            print(random.choice(tasks))
     else:
         print("No tasks match your criteria.")
         

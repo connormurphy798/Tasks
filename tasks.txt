@@ -15,4 +15,4 @@ id;pid;p-answer;nodetype;value
 13;11;Existing;task;work on a song,bake cookies,go to github and pick a repo to work on
 14;10;Not producing;task;exercise,practice cornet,learn/practice a song on keyboard,call a family member,journal
 15;0;Yes;question;Doing something or planning?
-16;15;Planning;task;make list of short-term tasks/errands,gift buying,homebrew research
+16;15;Planning;task;make list of short-term tasks/errands,gift buying,homebrew research,make plans with somebody
