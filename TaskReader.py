@@ -71,7 +71,7 @@ def make_task_tree(node_list, print_tree=True):
     
 
 if __name__ == "__main__":
-    task_file = "tasks.txt"
+    task_file = "mytasks.txt"
     nodes = read_file(task_file)
     task_tree = make_task_tree(nodes, print_tree=True)
     # print(f"{Node.num_tasks(task_tree)} total tasks listed")

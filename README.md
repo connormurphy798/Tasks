@@ -9,7 +9,7 @@ The task tree is composed of two fundamental units: tasks and questions. Tasks a
 
 Both tasks and questions are represented as nodes in the task tree. Internal nodes are of class `QuestionNode`. They represent a question, and their children are tasks or further questions that follow from particular answers to that question. Leaf nodes are of class `TaskNode`. They list a series of tasks consistent with all of the answers chosen so far.
 
-Questions and tasks are stored in a `.txt` file in a specified format described in `TaskReader.py`; see `tasks.txt` as an example.
+Questions and tasks are stored in a `.txt` file in a specified format described in `TaskReader.py`; see `exampletasks.txt`.
 
 
 ## Functionality and examples
@@ -53,7 +53,6 @@ Do you want to do something productive?
          1) exercise
          2) pick a subject and learn about it
 ```
-(Output abbreviated for clarity.)
 
 ### TaskDecider
 

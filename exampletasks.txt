@@ -1,0 +1,12 @@
+id;pid;p-answer;nodetype;value
+0;;;question;Do you want to do something productive?
+1;0;No;question;Should the task involve leaving the house?
+2;0;Doing something;question;Real or fake productive (i.e. needs to get done vs. would be good to do)?
+3;1;No;task;play video games,read a book,find a movie to watch
+4;1;Yes;question;Inside or outside?
+5;4;Inside;task;see a movie,go to a coffee shop
+6;4;Outside;task;go for a walk,go to the river
+7;2;Real;question;Primarily physical or thinking-based?
+8;7;Physical;task;clean bathroom,run errands,clean the litterbox
+9;7;Thinking;task;budgeting,studying/classwork,make that doctor's/dentist appointment
+10;2;Fake;task;devise a new programming project,exercise,pick a subject and learn about it
