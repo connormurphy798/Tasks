@@ -23,8 +23,7 @@ class QuestionNode(Node):
         self.answers = []   # parallel list with children, denoting what answer each child corresponds to
     
 
-    def add_new_qchild(self, id, answer="", child_question="", i=None):
-        child = QuestionNode(id=id, question=child_question)
+    def add_existing_child(self, child, answer="", i=None):
         if not i or i >= len(self.children):
             self.children.append(child)
             self.answers.append(answer)
@@ -32,17 +31,16 @@ class QuestionNode(Node):
             self.children.insert(i, child)
             self.answers.insert(i, answer)
         return child
+
+
+    def add_new_qchild(self, id, answer="", child_question="", i=None):
+        child = QuestionNode(id=id, question=child_question)
+        return self.add_existing_child(child=child, answer=answer, i=i)
     
 
     def add_new_tchild(self, id, answer="", child_tasks=[],  i=None):
         child = TaskNode(id=id, tasks=child_tasks)
-        if not i or i >= len(self.children):
-            self.children.append(child)
-            self.answers.append(answer)
-        else:
-            self.children.insert(i, child)
-            self.answers.insert(i, answer)
-        return child
+        return self.add_existing_child(child=child, answer=answer, i=i)
     
 
     def get_children(self):
@@ -203,3 +201,14 @@ def num_tasks(root):
         return len(root.get_tasks())
     raise TypeError("root must be a QuestionNode or TaskNode.")
 
+
+def get_tree_ids(root):
+    ret = [root.get_id()]
+    if isinstance(root, QuestionNode):
+        for child in root.get_children():
+            ret.extend(get_tree_ids(child))
+        return ret
+    elif isinstance(root, TaskNode):
+        return ret
+    else:
+        raise TypeError("Root must be of Node type")

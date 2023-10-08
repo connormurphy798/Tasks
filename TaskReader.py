@@ -29,15 +29,54 @@ def make_task_tree(node_list, print_tree=True):
     root_line = node_list[0]
     root = Node.QuestionNode(id=int(root_line[0]), question=root_line[4])
 
-    for node_line in node_list[1:]:
-        # node_line == [id, pid, p-answer, nodetype, value]
-        parent = Node.get_node(root=root, id=int(node_line[1]))
+    trees = []  # list of tuples (node, pid, answer)
+    for node_line in node_list[1:]: # node_line == [id, pid, p-answer, nodetype, value]
+        id  = int(node_line[0])
+        pid = int(node_line[1]) 
+
+        # create new node
         if node_line[3] == "question":
-            child = parent.add_new_qchild(id=int(node_line[0]), answer=node_line[2], child_question=node_line[4])
+            new_node = Node.QuestionNode(id=id, question=node_line[4])
         elif node_line[3] == "task":
-            child = parent.add_new_tchild(id=int(node_line[0]), answer=node_line[2], child_tasks=node_line[4].split(","))
+            new_node = Node.TaskNode(id=id, tasks=node_line[4].split(","))
         else:
             raise ValueError(f"Must specify whether node is of type question or task (node {node_line[0]}, child of {node_line[1]})")
+        
+        # attempt to add to existing tree
+        parent = Node.get_node(root=root, id=pid)
+        if parent:
+            parent.add_existing_child(child=new_node, answer=node_line[2])
+        else:
+            trees.append((new_node, pid, node_line[2]))
+
+    """
+    print("TREE SO FAR:")
+    Node.print_tree_neat(root)
+
+    print("\n\nSTILL REMAINING:")
+    print(trees)
+    print("\n\n")
+    """
+
+    # go back and try to add any unconnected nodes
+    # count = 0   # testing
+    # print(f"Tree ids: {sorted(Node.get_tree_ids(root))}")
+    while trees:
+        # print(f"iteration {count}: {trees}")
+        to_remove = -1
+        for i in range(len(trees)):
+            node, pid, answer = trees[i]
+            parent = Node.get_node(root=root, id=pid)
+            # print(f"parent: {parent}")
+            if parent:
+                parent.add_existing_child(child=node, answer=answer)
+                to_remove = i
+                break
+        # print(f"TO REMOVE: {to_remove}")
+        if to_remove == -1:
+            # Node.print_tree_neat(root)
+            raise ValueError(f"Node(s) without parent present in file, (node, pid, answer): {trees}")
+        trees.pop(i)
     
     if print_tree:
         Node.print_tree_neat(root)

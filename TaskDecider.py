@@ -3,8 +3,8 @@ import TaskReader
 
 
 def choose_task(task_file):
-    node_list = TaskReader.read_file(task_file)
-    task_tree = TaskReader.make_task_tree(node_list, print_tree=False)
+    node_info_list = TaskReader.read_file(task_file)
+    task_tree = TaskReader.make_task_tree(node_info_list, print_tree=False)
 
     node = task_tree
     print("Enter -1 at any point to see all tasks matching current criteria.")

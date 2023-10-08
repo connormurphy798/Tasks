@@ -1,7 +1,6 @@
 id;pid;p-answer;nodetype;value
 0;;;question;Do you want to do something productive?
 1;0;No;question;Should the task involve leaving the house?
-15;0;Yes;question;Doing something or planning?
 2;15;Doing something;question;Real or fake productive (i.e. needs to get done vs. would be good to do)?
 3;1;No;task;play video games,read a book,find a movie to watch,watch current show,play a board game
 4;1;Yes;question;Inside or outside?
@@ -15,4 +14,5 @@ id;pid;p-answer;nodetype;value
 12;11;New;task;cross stitch,start a song,new baking recipe,find a new woodworking/household project,devise a new programming project
 13;11;Existing;task;work on a song,bake cookies,go to github and pick a repo to work on
 14;10;Not producing;task;exercise,practice cornet,learn/practice a song on keyboard,call a family member,journal
+15;0;Yes;question;Doing something or planning?
 16;15;Planning;task;make list of short-term tasks/errands,gift buying,homebrew research
