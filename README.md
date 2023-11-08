@@ -1,6 +1,6 @@
 # Tasks
 
-I'm often bored at home and can neither 1) think of activities that are available to me nor 2) actually get myself to do an activity once I think of it. This project helps me with both issues by keeping track of all of my tasks in an organized tree structure and helping me decide on ones to engage in.
+I'm often home and have trouble 1) thinking of activities that are available to me and 2) choosing from a list of activities once I think of some. This project helps me with both issues by keeping track of all of my tasks in an organized tree structure and helping me decide on ones to engage in.
 
 
 ## Task tree
